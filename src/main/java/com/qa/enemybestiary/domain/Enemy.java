@@ -1,7 +1,7 @@
 package com.qa.enemybestiary.domain;
 
 import java.math.BigDecimal;
-import java.util.Arrays;
+import java.util.EnumSet;
 import java.util.Objects;
 
 import javax.persistence.Entity;
@@ -13,6 +13,7 @@ import javax.validation.constraints.NotNull;
 import com.qa.enemybestiary.domain.enums.ElementalReaction;
 import com.qa.enemybestiary.domain.enums.EnemyType;
 import com.qa.enemybestiary.domain.enums.Item;
+import com.qa.enemybestiary.domain.enums.Location;
 import com.qa.enemybestiary.domain.enums.MeleeReaction;
 
 @Entity
@@ -21,10 +22,10 @@ public class Enemy {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
+
 	private String name;
 	private EnemyType type;
-	private String[] locations;
+	private EnumSet<Location> locations;
 	@NotNull
 	private Integer level;
 	@NotNull
@@ -51,14 +52,16 @@ public class Enemy {
 	private BigDecimal itemOneChance;
 	private Item itemTwo;
 	private BigDecimal itemTwoChance;
-	
-	public Enemy() {}
-	
-	public Enemy(String name, EnemyType type, String[] locations, Integer level, Integer maxHP, Integer pow,
-			Integer def, Integer speed, MeleeReaction jump, MeleeReaction hammer, MeleeReaction hand,
-			ElementalReaction fire, ElementalReaction thunder, BigDecimal chanceOfStun, BigDecimal chanceOfBurn,
-			BigDecimal chanceOfStatDown, Integer exp, Integer coins, Item itemOne, BigDecimal itemOneChance,
-			Item itemTwo, BigDecimal itemTwoChance) {
+
+	public Enemy() {
+	}
+
+	public Enemy(String name, EnemyType type, EnumSet<Location> locations, @NotNull Integer level,
+			@NotNull Integer maxHP, @NotNull Integer pow, @NotNull Integer def, @NotNull Integer speed,
+			MeleeReaction jump, MeleeReaction hammer, MeleeReaction hand, ElementalReaction fire,
+			ElementalReaction thunder, BigDecimal chanceOfStun, BigDecimal chanceOfBurn, BigDecimal chanceOfStatDown,
+			@NotNull Integer exp, @NotNull Integer coins, Item itemOne, BigDecimal itemOneChance, Item itemTwo,
+			BigDecimal itemTwoChance) {
 		super();
 		this.name = name;
 		this.type = type;
@@ -86,13 +89,9 @@ public class Enemy {
 
 	@Override
 	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + Arrays.hashCode(locations);
-		result = prime * result + Objects.hash(chanceOfBurn, chanceOfStatDown, chanceOfStun, coins, def, exp, fire,
-				hammer, hand, id, itemOne, itemOneChance, itemTwo, itemTwoChance, jump, level, maxHP, name, pow, speed,
+		return Objects.hash(chanceOfBurn, chanceOfStatDown, chanceOfStun, coins, def, exp, fire, hammer, hand, id,
+				itemOne, itemOneChance, itemTwo, itemTwoChance, jump, level, locations, maxHP, name, pow, speed,
 				thunder, type);
-		return result;
 	}
 
 	@Override
@@ -111,7 +110,7 @@ public class Enemy {
 				&& hammer == other.hammer && hand == other.hand && Objects.equals(id, other.id)
 				&& itemOne == other.itemOne && Objects.equals(itemOneChance, other.itemOneChance)
 				&& itemTwo == other.itemTwo && Objects.equals(itemTwoChance, other.itemTwoChance) && jump == other.jump
-				&& Objects.equals(level, other.level) && Arrays.equals(locations, other.locations)
+				&& Objects.equals(level, other.level) && Objects.equals(locations, other.locations)
 				&& Objects.equals(maxHP, other.maxHP) && Objects.equals(name, other.name)
 				&& Objects.equals(pow, other.pow) && Objects.equals(speed, other.speed) && thunder == other.thunder
 				&& type == other.type;
@@ -129,7 +128,7 @@ public class Enemy {
 		return type;
 	}
 
-	public String[] getLocations() {
+	public EnumSet<Location> getLocations() {
 		return locations;
 	}
 
@@ -221,7 +220,7 @@ public class Enemy {
 		this.type = type;
 	}
 
-	public void setLocations(String[] locations) {
+	public void setLocations(EnumSet<Location> locations) {
 		this.locations = locations;
 	}
 

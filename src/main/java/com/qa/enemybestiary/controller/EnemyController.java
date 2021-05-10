@@ -22,8 +22,8 @@ public class EnemyController {
 	}
 	
 	@GetMapping("/catalogue")
-	public ResponseEntity<List<Enemy>> readAllEnemiesOverview() {
-		List<Enemy> enemies = this.service.readAllEnemiesOverview();
+	public ResponseEntity<List<Enemy>> getEnemyOverview() {
+		List<Enemy> enemies = this.service.getEnemyOverview();
 		return ResponseEntity.ok(enemies);
 	}
 	

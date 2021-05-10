@@ -52,6 +52,7 @@ public class Enemy {
 	private BigDecimal itemOneChance;
 	private Item itemTwo;
 	private BigDecimal itemTwoChance;
+	private Boolean isCustom;
 
 	public Enemy() {
 	}
@@ -61,7 +62,7 @@ public class Enemy {
 			MeleeReaction jump, MeleeReaction hammer, MeleeReaction hand, ElementalReaction fire,
 			ElementalReaction thunder, BigDecimal chanceOfStun, BigDecimal chanceOfBurn, BigDecimal chanceOfStatDown,
 			@NotNull Integer exp, @NotNull Integer coins, Item itemOne, BigDecimal itemOneChance, Item itemTwo,
-			BigDecimal itemTwoChance) {
+			BigDecimal itemTwoChance, Boolean isCustom) {
 		super();
 		this.name = name;
 		this.type = type;
@@ -85,13 +86,14 @@ public class Enemy {
 		this.itemOneChance = itemOneChance;
 		this.itemTwo = itemTwo;
 		this.itemTwoChance = itemTwoChance;
+		this.isCustom = isCustom;
 	}
 
 	@Override
 	public int hashCode() {
 		return Objects.hash(chanceOfBurn, chanceOfStatDown, chanceOfStun, coins, def, exp, fire, hammer, hand, id,
-				itemOne, itemOneChance, itemTwo, itemTwoChance, jump, level, locations, maxHP, name, pow, speed,
-				thunder, type);
+				isCustom, itemOne, itemOneChance, itemTwo, itemTwoChance, jump, level, locations, maxHP, name, pow,
+				speed, thunder, type);
 	}
 
 	@Override
@@ -108,8 +110,9 @@ public class Enemy {
 				&& Objects.equals(chanceOfStun, other.chanceOfStun) && Objects.equals(coins, other.coins)
 				&& Objects.equals(def, other.def) && Objects.equals(exp, other.exp) && fire == other.fire
 				&& hammer == other.hammer && hand == other.hand && Objects.equals(id, other.id)
-				&& itemOne == other.itemOne && Objects.equals(itemOneChance, other.itemOneChance)
-				&& itemTwo == other.itemTwo && Objects.equals(itemTwoChance, other.itemTwoChance) && jump == other.jump
+				&& Objects.equals(isCustom, other.isCustom) && itemOne == other.itemOne
+				&& Objects.equals(itemOneChance, other.itemOneChance) && itemTwo == other.itemTwo
+				&& Objects.equals(itemTwoChance, other.itemTwoChance) && jump == other.jump
 				&& Objects.equals(level, other.level) && Objects.equals(locations, other.locations)
 				&& Objects.equals(maxHP, other.maxHP) && Objects.equals(name, other.name)
 				&& Objects.equals(pow, other.pow) && Objects.equals(speed, other.speed) && thunder == other.thunder
@@ -208,6 +211,10 @@ public class Enemy {
 		return itemTwoChance;
 	}
 
+	public Boolean getIsCustom() {
+		return isCustom;
+	}
+
 	public void setId(Long id) {
 		this.id = id;
 	}
@@ -299,6 +306,9 @@ public class Enemy {
 	public void setItemTwoChance(BigDecimal itemTwoChance) {
 		this.itemTwoChance = itemTwoChance;
 	}
-	
-	
+
+	public void setIsCustom(Boolean isCustom) {
+		this.isCustom = isCustom;
+	}
+
 }

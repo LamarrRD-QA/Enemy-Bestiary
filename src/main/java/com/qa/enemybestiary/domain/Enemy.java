@@ -24,7 +24,7 @@ public class Enemy {
 	private Long id;
 
 	private String name;
-	private EnemyType type;
+	private EnemyType enemyType;
 	private EnumSet<Location> locations;
 	@NotNull
 	private Integer level;
@@ -57,7 +57,7 @@ public class Enemy {
 	public Enemy() {
 	}
 
-	public Enemy(String name, EnemyType type, EnumSet<Location> locations, @NotNull Integer level,
+	public Enemy(String name, EnemyType enemyType, EnumSet<Location> locations, @NotNull Integer level,
 			@NotNull Integer maxHP, @NotNull Integer pow, @NotNull Integer def, @NotNull Integer speed,
 			MeleeReaction jump, MeleeReaction hammer, MeleeReaction hand, ElementalReaction fire,
 			ElementalReaction thunder, BigDecimal chanceOfStun, BigDecimal chanceOfBurn, BigDecimal chanceOfStatDown,
@@ -65,7 +65,7 @@ public class Enemy {
 			BigDecimal itemTwoChance, Boolean isCustom) {
 		super();
 		this.name = name;
-		this.type = type;
+		this.enemyType = enemyType;
 		this.locations = locations;
 		this.level = level;
 		this.maxHP = maxHP;
@@ -93,7 +93,7 @@ public class Enemy {
 	public int hashCode() {
 		return Objects.hash(chanceOfBurn, chanceOfStatDown, chanceOfStun, coins, def, exp, fire, hammer, hand, id,
 				isCustom, itemOne, itemOneChance, itemTwo, itemTwoChance, jump, level, locations, maxHP, name, pow,
-				speed, thunder, type);
+				speed, thunder, enemyType);
 	}
 
 	@Override
@@ -116,7 +116,7 @@ public class Enemy {
 				&& Objects.equals(level, other.level) && Objects.equals(locations, other.locations)
 				&& Objects.equals(maxHP, other.maxHP) && Objects.equals(name, other.name)
 				&& Objects.equals(pow, other.pow) && Objects.equals(speed, other.speed) && thunder == other.thunder
-				&& type == other.type;
+				&& enemyType == other.enemyType;
 	}
 
 	public Long getId() {
@@ -127,8 +127,8 @@ public class Enemy {
 		return name;
 	}
 
-	public EnemyType getType() {
-		return type;
+	public EnemyType getEnemyType() {
+		return enemyType;
 	}
 
 	public EnumSet<Location> getLocations() {
@@ -223,8 +223,8 @@ public class Enemy {
 		this.name = name;
 	}
 
-	public void setType(EnemyType type) {
-		this.type = type;
+	public void setEnemyType(EnemyType enemyType) {
+		this.enemyType = enemyType;
 	}
 
 	public void setLocations(EnumSet<Location> locations) {

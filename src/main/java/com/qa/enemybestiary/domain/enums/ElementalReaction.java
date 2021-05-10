@@ -1,7 +1,7 @@
 package com.qa.enemybestiary.domain.enums;
 
 public enum ElementalReaction {
-	HEAL("Heal"), CRITICAL("Critical");
+	HEAL("Heal"), CRITICAL("Critical"), NORMAL("Normal");
 	
 	ElementalReaction(String friendlyName) {
 		this.friendlyName = friendlyName;

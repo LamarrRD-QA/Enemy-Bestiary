@@ -1,5 +1,7 @@
 package com.qa.enemybestiary.domain.enums;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public enum Item {
 	NONE("None"), MUSHROOM("Mushroom"), SUPERMUSHROOM("Super Mushroom"), ULTRAMUSHROOM("Ultra Mushroom"),
 	MAXMUSHROOM("Max Mushroom"), NUT("Nut"), SUPERNUT("Super Nut"), ULTRANUT("Ultra Nut"), MAXNUT("Max Nut"),
@@ -14,6 +16,7 @@ public enum Item {
 	private String friendlyName;
 
 	@Override
+	@JsonValue
 	public String toString() {
 		return this.friendlyName;
 	}

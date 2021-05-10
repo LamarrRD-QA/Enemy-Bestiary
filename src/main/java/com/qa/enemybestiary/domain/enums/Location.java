@@ -2,6 +2,8 @@ package com.qa.enemybestiary.domain.enums;
 
 import java.util.Arrays;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public enum Location {
 	GOODCASTLE("Peach's Castle"), CRUISER("Koopa Cruiser"), FIELDS("Stardust Fields"), MOUNTAIN("Hoohoo Mountain"),
 	OUTSKIRTS("Beanbean Outskirts"), BEANCASTLE("Beanbean Castle"), BEANSEWERS("Beanbean Castle Sewers"),
@@ -14,6 +16,7 @@ public enum Location {
 	private String friendlyName;
 
 	@Override
+	@JsonValue
 	public String toString() {
 		return this.friendlyName;
 	}

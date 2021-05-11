@@ -42,10 +42,193 @@
                 <th scope="col">Normal or Custom</th>
             </tr>
         </thead>
-        <tbody id="enemyTableBody"">
-
+        <tbody id="enemyTableBody">
         </tbody>
     </table>
+    <button type=" button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addEnemyModal">
+        Add Enemy
+    </button>
+    <div class="modal fade" id="addEnemyModal" tabindex="-1" aria-labelledby="addEnemyModal" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="addEnemyModalLabel">Add New Enemy</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="mb-3">
+                            <label for="addEnemyName" class="form-label">Name</label>
+                            <input type="text" class="form-control" id="addEnemyName">
+                        </div>
+                        <div class="mb-3">
+                            <label for="addEnemyType" class="form-label">Type</label>
+                            <select class="form-select" id="addEnemyType">
+                                <option>Normal</option>
+                                <option>Boss</option>
+                                <option>Support</option>
+                            </select>
+                        </div>
+                        <div class=" mb-3">
+                            <label for="addEnemyImage" class="form-label">Image</label>
+                            <input type="file" class="form-control" id="addEnemyImg">
+                        </div>
+                        <div class="mb-3">
+                            <label for="addEnemyLevel" class="form-label">Level</label>
+                            <input type="number" class="form-control" id="addEnemyLevel">
+                        </div>
+                        <div class="mb-3">
+                            <label for="addEnemyLocations" class="form-label">Locations</label>
+                            <select class="form-select" multiple id="addEnemyLocations">
+                                <option>Peach's Castle</option>
+                                <option>Koopa Cruiser</option>
+                                <option>Stardust Fields</option>
+                                <option>Hoohoo Mountain</option>
+                                <option>Beanbean Outskirts</option>
+                                <option>Beanbean Castle</option>
+                                <option>Beanbean Castle Sewers</option>
+                                <option>Chateau de Chucklehuck</option>
+                                <option>Chucklehuck Woods</option>
+                                <option>Oho Ocean Seabed</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="addEnemyCoins" class="form-label">Coins</label>
+                            <input type="number" class="form-control" id="addEnemyCoins">
+                        </div>
+                        <div class="mb-3">
+                            <label for="addEnemyExp" class="form-label">EXP</label>
+                            <input type="number" class="form-control" id="addEnemyExp">
+                        </div>
+                        <div class="mb-3">
+                            <label for="addEnemyPow" class="form-label">POW</label>
+                            <input type="number" class="form-control" id="addEnemyPow">
+                        </div>
+                        <div class="mb-3">
+                            <label for="addEnemyDef" class="form-label">DEF</label>
+                            <input type="number" class="form-control" id="addEnemyDef">
+                        </div>
+                        <div class="mb-3">
+                            <label for="addEnemySpeed" class="form-label">SPEED</label>
+                            <input type="number" class="form-control" id="addEnemySpeed">
+                        </div>
+                        <div class="mb-3">
+                            <label for="addEnemyStun" class="form-label">Stun?</label>
+                            <input type="range" class="form-control" id="addEnemyStun">
+                        </div>
+                        <div class="mb-3">
+                            <label for="addEnemyBurn" class="form-label">Burn?</label>
+                            <input type="range" class="form-control" id="addEnemyBurn">
+                        </div>
+                        <div class="mb-3">
+                            <label for="addEnemyStatDown" class="form-label">Stat Down?</label>
+                            <input type="range" class="form-control" id="addEnemyStatDown">
+                        </div>
+                        <div class="mb-3">
+                            <label for="addEnemyJumpReaction" class="form-label">Reaction to Jump</label>
+                            <select class="form-select" id="addEnemyJumpReaction">
+                                <option>Normal</option>
+                                <option>Spiny</option>
+                                <option>Weak</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="addEnemyHammerReaction" class="form-label">Reaction to Hammer</label>
+                            <select class="form-select" id="addEnemyHammerReaction">
+                                <option>Normal</option>
+                                <option>Weak</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="addEnemyHandReaction" class="form-label">Reaction to Hand</label>
+                            <select class="form-select" id="addEnemyHandReaction">
+                                <option>Normal</option>
+                                <option>Weak</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="addEnemyFireReaction" class="form-label">Reaction to Fire</label>
+                            <select class="form-select" id="addEnemyFireReaction">
+                                <option>Normal</option>
+                                <option>Heal</option>
+                                <option>Critical</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="addEnemyThunderReaction" class="form-label">Reaction to Thunder</label>
+                            <select class="form-select" id="addEnemyThunderReaction">
+                                <option>Normal</option>
+                                <option>Heal</option>
+                                <option>Critical</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="addEnemyItemOne" class="form-label">Item Received (1)</label>
+                            <select class="form-select" id="addEnemyItemOne">
+                                <option>None</option>
+                                <option>Mushroom</option>
+                                <option>Super Mushroom</option>
+                                <option>Ultra Mushroom</option>
+                                <option>Max Mushroom</option>
+                                <option>Nut</option>
+                                <option>Super Nut</option>
+                                <option>Ultra Nut</option>
+                                <option>Max Nut</option>
+                                <option>Syrup Jar</option>
+                                <option>Supersyrup Jar</option>
+                                <option>Ultrasyrup Jar</option>
+                                <option>Max Syrup Jar</option>
+                                <option>1-Up Mushroom</option>
+                                <option>1-Up Super</option>
+                                <option>Red Pepper</option>
+                                <option>Green Pepper</option>
+                                <option>Refreshing Herb</option>
+                                <option>Golden Mushroom</option>
+                                <option>Woo Bean</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="addEnemyChanceItemOne" class="form-label">Chance of Item Received (1)</label>
+                            <input type="range" class="form-control" id="addEnemyChanceItemOne">
+                        </div>
+                        <div class="mb-3">
+                            <label for="addEnemyItemTwo" class="form-label">Item Received (2)</label>
+                            <select class="form-select" id="addEnemyItemTwo">
+                                <option>None</option>
+                                <option>Mushroom</option>
+                                <option>Super Mushroom</option>
+                                <option>Ultra Mushroom</option>
+                                <option>Max Mushroom</option>
+                                <option>Nut</option>
+                                <option>Super Nut</option>
+                                <option>Ultra Nut</option>
+                                <option>Max Nut</option>
+                                <option>Syrup Jar</option>
+                                <option>Supersyrup Jar</option>
+                                <option>Ultrasyrup Jar</option>
+                                <option>Max Syrup Jar</option>
+                                <option>1-Up Mushroom</option>
+                                <option>1-Up Super</option>
+                                <option>Red Pepper</option>
+                                <option>Green Pepper</option>
+                                <option>Refreshing Herb</option>
+                                <option>Golden Mushroom</option>
+                                <option>Woo Bean</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="addEnemyChanceItemTwo" class="form-label">Chance of Item Received (2)</label>
+                            <input type="range" class="form-control" id="addEnemyChanceItemTwo">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-p34f1UUtsS3wqzfto5wAAmdvj+osOnFyQFpp4Ua3gs/ZVWx6oOypYoCJhGGScy+8"
         crossorigin="anonymous"></script>

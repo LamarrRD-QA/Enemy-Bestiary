@@ -1,12 +1,12 @@
 'use strict';
 
 (function () {
-    const BASE_URL = `http://localhost:8080`;
+    const BASEURL = `http://localhost:8080`;
     const TABLEBODY = document.querySelector(`#enemyTableBody`);
 
     const makeGetRequest = async () => {
         try {
-            const response = await axios.get(`${BASE_URL}/catalogue`);
+            const response = await axios.get(`${BASEURL}/catalogue`);
             const enemies = response.data;
             console.log(`GET: Retrieved list of enemies`, enemies);
             enemies.forEach(enemy => createEnemyTableRow(enemy));
@@ -48,4 +48,5 @@
     }
 
     makeGetRequest();
+
 })();

@@ -26,7 +26,5 @@ public class EnemyController {
 		List<Enemy> enemies = this.service.getEnemyOverview();
 		return ResponseEntity.ok(enemies);
 	}
-	
-	
 
 }

@@ -48,18 +48,18 @@
     <button type=" button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addEnemyModal">
         Add Enemy
     </button>
-    <div class="modal fade" id="addEnemyModal" tabindex="-1" aria-labelledby="addEnemyModal" aria-hidden="true">
+    <div class="modal fade" id="addEnemyModal" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="addEnemyModalLabel">Add New Enemy</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                 </div>
                 <div class="modal-body">
                     <form>
                         <div class="mb-3">
                             <label for="addEnemyName" class="form-label">Name</label>
-                            <input type="text" class="form-control" id="addEnemyName">
+                            <input type="text" class="form-control" id="addEnemyName" required>
                         </div>
                         <div class="mb-3">
                             <label for="addEnemyType" class="form-label">Type</label>
@@ -75,7 +75,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="addEnemyLevel" class="form-label">Level</label>
-                            <input type="number" class="form-control" id="addEnemyLevel">
+                            <input type="number" class="form-control" id="addEnemyLevel" min="0" required>
                         </div>
                         <div class="mb-3">
                             <label for="addEnemyLocations" class="form-label">Locations</label>
@@ -94,35 +94,35 @@
                         </div>
                         <div class="mb-3">
                             <label for="addEnemyCoins" class="form-label">Coins</label>
-                            <input type="number" class="form-control" id="addEnemyCoins">
+                            <input type="number" class="form-control" id="addEnemyCoins" min="0" required>
                         </div>
                         <div class="mb-3">
                             <label for="addEnemyExp" class="form-label">EXP</label>
-                            <input type="number" class="form-control" id="addEnemyExp">
+                            <input type="number" class="form-control" id="addEnemyExp" min="0" required>
                         </div>
                         <div class="mb-3">
                             <label for="addEnemyPow" class="form-label">POW</label>
-                            <input type="number" class="form-control" id="addEnemyPow">
+                            <input type="number" class="form-control" id="addEnemyPow" min="0" required>
                         </div>
                         <div class="mb-3">
                             <label for="addEnemyDef" class="form-label">DEF</label>
-                            <input type="number" class="form-control" id="addEnemyDef">
+                            <input type="number" class="form-control" id="addEnemyDef" min="0" required>
                         </div>
                         <div class="mb-3">
                             <label for="addEnemySpeed" class="form-label">SPEED</label>
-                            <input type="number" class="form-control" id="addEnemySpeed">
+                            <input type="number" class="form-control" id="addEnemySpeed" min="0" required>
                         </div>
                         <div class="mb-3">
                             <label for="addEnemyStun" class="form-label">Stun?</label>
-                            <input type="range" class="form-control" id="addEnemyStun">
+                            <input type="number" class="form-control" id="addEnemyStun" min="0" max="100" required>
                         </div>
                         <div class="mb-3">
                             <label for="addEnemyBurn" class="form-label">Burn?</label>
-                            <input type="range" class="form-control" id="addEnemyBurn">
+                            <input type="range" class="form-control" id="addEnemyBurn" min="0" max="100" required>
                         </div>
                         <div class="mb-3">
                             <label for="addEnemyStatDown" class="form-label">Stat Down?</label>
-                            <input type="range" class="form-control" id="addEnemyStatDown">
+                            <input type="range" class="form-control" id="addEnemyStatDown" min="0" max="100" required>
                         </div>
                         <div class="mb-3">
                             <label for="addEnemyJumpReaction" class="form-label">Reaction to Jump</label>
@@ -189,7 +189,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="addEnemyChanceItemOne" class="form-label">Chance of Item Received (1)</label>
-                            <input type="range" class="form-control" id="addEnemyChanceItemOne">
+                            <input type="number" class="form-control" id="addEnemyChanceItemOne" min="0" max="100">
                         </div>
                         <div class="mb-3">
                             <label for="addEnemyItemTwo" class="form-label">Item Received (2)</label>
@@ -218,7 +218,7 @@
                         </div>
                         <div class="mb-3">
                             <label for="addEnemyChanceItemTwo" class="form-label">Chance of Item Received (2)</label>
-                            <input type="range" class="form-control" id="addEnemyChanceItemTwo">
+                            <input type="number" class="form-control" id="addEnemyChanceItemTwo" min="0" max="100">
                         </div>
                     </form>
                 </div>

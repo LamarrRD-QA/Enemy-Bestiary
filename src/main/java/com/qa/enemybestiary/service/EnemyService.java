@@ -21,4 +21,8 @@ public class EnemyService {
 		return this.repo.findAll();
 	}
 
+	public Enemy create(Enemy enemy) {
+		return this.repo.save(enemy);
+	}
+
 }

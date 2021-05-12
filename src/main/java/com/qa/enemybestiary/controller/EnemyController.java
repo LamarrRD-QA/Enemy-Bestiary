@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -40,13 +41,31 @@ public class EnemyController {
 
 	@PutMapping("/catalogue/{id}")
 	public ResponseEntity<Enemy> updateEnemy(@PathVariable("id") Long id, @RequestBody Enemy enemy) {
-		Enemy updatedEnemy = this.service.updateEnemy(id, enemy);
-		return ResponseEntity.ok(updatedEnemy);
+		try {
+			Enemy updatedEnemy = this.service.updateEnemy(id, enemy);
+			return ResponseEntity.ok(updatedEnemy);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
 	}
 	
 	@GetMapping("catalogue/{id}")
 	public ResponseEntity<Enemy> getEnemy(@PathVariable("id") Long id) {
-		Enemy updatedEnemy = this.service.getEnemy(id);
-		return ResponseEntity.ok(updatedEnemy);
+		try {
+			Enemy updatedEnemy = this.service.getEnemy(id);
+			return ResponseEntity.ok(updatedEnemy);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	@DeleteMapping("catalogue/{id}")
+	public ResponseEntity<Enemy> deleteEnemy(@PathVariable("id") Long id) {
+		try {
+			this.service.deleteEnemy(id);
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.GONE);
+		}
 	}
 }

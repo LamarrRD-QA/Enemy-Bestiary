@@ -17,7 +17,7 @@ public class EnemyService {
 		this.repo = repo;
 	}
 
-	public List<Enemy> getEnemyOverview() {
+	public List<Enemy> getAllEnemies() {
 		return this.repo.findAll();
 	}
 
@@ -32,6 +32,10 @@ public class EnemyService {
 		
 		this.repo.save(newEnemy);
 		return newEnemy;
+	}
+
+	public Enemy getEnemy(Long id) {
+		return this.repo.findById(id).orElseThrow();
 	}
 
 }

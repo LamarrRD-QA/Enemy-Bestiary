@@ -27,8 +27,8 @@ public class EnemyController {
 	}
 	
 	@GetMapping("/catalogue")
-	public ResponseEntity<List<Enemy>> getEnemyOverview() {
-		List<Enemy> enemies = this.service.getEnemyOverview();
+	public ResponseEntity<List<Enemy>> getAllEnemies() {
+		List<Enemy> enemies = this.service.getAllEnemies();
 		return ResponseEntity.ok(enemies);
 	}
 	
@@ -41,6 +41,12 @@ public class EnemyController {
 	@PutMapping("/catalogue/{id}")
 	public ResponseEntity<Enemy> updateEnemy(@PathVariable("id") Long id, @RequestBody Enemy enemy) {
 		Enemy updatedEnemy = this.service.updateEnemy(id, enemy);
+		return ResponseEntity.ok(updatedEnemy);
+	}
+	
+	@GetMapping("catalogue/{id}")
+	public ResponseEntity<Enemy> getEnemy(@PathVariable("id") Long id) {
+		Enemy updatedEnemy = this.service.getEnemy(id);
 		return ResponseEntity.ok(updatedEnemy);
 	}
 }

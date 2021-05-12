@@ -6,8 +6,10 @@
     const ADDENEMYSUBMIT = document.querySelector(`#addEnemySubmit`);
     const ADDENEMYLOCATIONS = document.querySelector(`#addEnemyLocations`);
     const UPDATEENEMYSUBMIT = document.querySelector(`#updateEnemySubmit`);
+    const DELETEENEMYBUTTON = document.querySelector(`#deleteEnemyYes`);
     const UPDATEENEMYLOCATIONS = document.querySelector(`#updateEnemyLocations`);
     const UPDATEENEMYMODAL = document.querySelector(`#updateEnemyModal`);
+    const DELETEENEMYMODAL = document.querySelector(`#deleteEnemyModal`);
 
 
     const makeGetRequest = async () => {
@@ -36,7 +38,6 @@
 
     const handleAddFormSubmit = (event) => {
         event.preventDefault();
-        console.log(document.forms.length);
 
         const formData = new FormData(document.forms.namedItem(`addEnemyForm`));
 
@@ -47,8 +48,6 @@
         // sendImageToServer(formImage);
 
         const formJSON = manipulateData(formData);
-        console.log(formJSON);
-
         postDataToSQL(formJSON);
     }
 
@@ -56,7 +55,7 @@
         event.preventDefault();
 
         const formData = new FormData(document.forms.namedItem(`updateEnemyForm`));
-        
+
 
         // TODO: Implement image upload functionality for custom enemy
         // const formImage = new FormData();
@@ -65,8 +64,6 @@
         // sendImageToServer(formImage);
 
         const formJSON = manipulateData(formData);
-        console.log(formJSON.id);
-
         putDataToSQL(formJSON, formJSON.id);
     }
 
@@ -87,8 +84,6 @@
                 locationArr.push(option.textContent);
             }
         }
-
-        console.log(locationArr);
 
         // Create JSON of form data and correct data types;
         let newJSON = Object.fromEntries(data.entries());
@@ -138,7 +133,6 @@
             let enemy = response.data;
             console.log(`PUT: Updated enemy`, enemy);
             updateEnemyTableRow(enemy);
-            //createEnemyTableRow(enemy);
         } catch (error) {
             console.error(error);
         }
@@ -165,7 +159,6 @@
     }
 
     const managePopover = (row) => {
-        console.log();
         let rowPopOver = new bootstrap.Popover(row, {
             container: row,
             placement: `bottom`,
@@ -174,7 +167,7 @@
             sanitize: false,
             content: `<button type="button" id="btnView" class="btn btn-secondary">View</button> ` +
                 `<button type="button" id="btnUpdate" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateEnemyModal" data-enemyid=${row.dataset["enemyid"]}>Update</button> ` +
-                `<button type="button" id="btnDelete" class="btn btn-danger" data-enemyid=${row.dataset["enemyid"]}>Delete</button> `
+                `<button type="button" id="btnDelete" class="btn btn-danger" data-enemyid=${row.dataset["enemyid"]} data-bs-toggle="modal" data-bs-target="#deleteEnemyModal">Delete</button> `
         });
     }
 
@@ -235,8 +228,32 @@
 
     }
 
-    const createEnemyTableRow = (enemy) => {
+    const setupDeleteEnemyModal = (event) => {
+        let enemyID = event.relatedTarget.dataset["enemyid"];
+        DELETEENEMYBUTTON.dataset["enemyid"] = enemyID;
+    }
 
+    const handleDeleteEnemy = (event) => {
+        let enemyID = event.target.dataset["enemyid"];
+        deleteEnemyFromSQL(enemyID);
+    }
+
+    const deleteEnemyFromSQL = async (id) => {
+        try {
+            await axios.delete(`/catalogue/${id}`);
+            console.log(`DELETE: Enemy successful deleted`);
+            removeTableRow(id);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    const removeTableRow = (id) => {
+        let currentRow = document.querySelector(`#tableRow${id}`);
+        currentRow.remove();
+    }
+
+    const createEnemyTableRow = (enemy) => {
         //Set needed attributes for new table row
         let row = document.createElement(`tr`);
         row.setAttribute(`tabindex`, `-1`);
@@ -286,5 +303,7 @@
     UPDATEENEMYMODAL.addEventListener(`shown.bs.modal`, setupFindEnemy);
     UPDATEENEMYLOCATIONS.addEventListener(`change`, handleSelectedToArray);
     UPDATEENEMYSUBMIT.addEventListener(`click`, handleUpdateFormSubmit);
+    DELETEENEMYMODAL.addEventListener(`shown.bs.modal`, setupDeleteEnemyModal);
+    DELETEENEMYBUTTON.addEventListener(`click`, handleDeleteEnemy);
 
 })();

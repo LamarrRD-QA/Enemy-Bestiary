@@ -21,8 +21,17 @@ public class EnemyService {
 		return this.repo.findAll();
 	}
 
-	public Enemy create(Enemy enemy) {
+	public Enemy createEnemy(Enemy enemy) {
 		return this.repo.save(enemy);
+	}
+
+	public Enemy updateEnemy(Long id, Enemy newEnemy) {
+		Enemy oldEnemy = this.repo.findById(id).orElseThrow();
+		
+		newEnemy.setId(oldEnemy.getId());
+		
+		this.repo.save(newEnemy);
+		return newEnemy;
 	}
 
 }

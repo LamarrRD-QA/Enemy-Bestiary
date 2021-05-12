@@ -102,7 +102,7 @@
                             <input type="number" class="form-control" name="exp" id="addEnemyExp" min="0" required>
                         </div>
                         <div class="mb-3">
-                            <label for="addEnemyPow" class="form-label">HP</label>
+                            <label for="addEnemyHP" class="form-label">HP</label>
                             <input type="number" class="form-control" name="maxHP" id="addEnemyHP" min="0" required>
                         </div>
                         <div class="mb-3">
@@ -119,15 +119,18 @@
                         </div>
                         <div class="mb-3">
                             <label for="addEnemyStun" class="form-label">Stun?</label>
-                            <input type="number" class="form-control" name="chanceOfStun" id="addEnemyStun" min="0" max="100" required>
+                            <input type="number" class="form-control" name="chanceOfStun" id="addEnemyStun" min="0"
+                                max="100" required>
                         </div>
                         <div class="mb-3">
                             <label for="addEnemyBurn" class="form-label">Burn?</label>
-                            <input type="number" class="form-control" name="chanceOfBurn" id="addEnemyBurn" min="0" max="100" required>
+                            <input type="number" class="form-control" name="chanceOfBurn" id="addEnemyBurn" min="0"
+                                max="100" required>
                         </div>
                         <div class="mb-3">
                             <label for="addEnemyStatDown" class="form-label">Stat Down?</label>
-                            <input type="number" class="form-control" name="chanceOfStatDown" id="addEnemyStatDown" min="0" max="100" required>
+                            <input type="number" class="form-control" name="chanceOfStatDown" id="addEnemyStatDown"
+                                min="0" max="100" required>
                         </div>
                         <div class="mb-3">
                             <label for="addEnemyJumpReaction" class="form-label">Reaction to Jump</label>
@@ -194,7 +197,8 @@
                         </div>
                         <div class="mb-3">
                             <label for="addEnemyChanceItemOne" class="form-label">Chance of Item Received (1)</label>
-                            <input type="number" class="form-control" name="itemOneChance" id="addEnemyChanceItemOne" min="0" max="100">
+                            <input type="number" class="form-control" name="itemOneChance" id="addEnemyChanceItemOne"
+                                min="0" max="100">
                         </div>
                         <div class="mb-3">
                             <label for="addEnemyItemTwo" class="form-label">Item Received (2)</label>
@@ -223,13 +227,212 @@
                         </div>
                         <div class="mb-3">
                             <label for="addEnemyChanceItemTwo" class="form-label">Chance of Item Received (2)</label>
-                            <input type="number" class="form-control" name="itemTwoChance" id="addEnemyChanceItemTwo" min="0" max="100">
+                            <input type="number" class="form-control" name="itemTwoChance" id="addEnemyChanceItemTwo"
+                                min="0" max="100">
                         </div>
                     </form>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                     <button type="submit" class="btn btn-primary" id="addEnemySubmit">Submit</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="updateEnemyModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="updateEnemyModalLabel">Update Enemy</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="updateEnemyForm">
+                        <div class="mb-3">
+                            <label for="updateEnemyID" class="form-label">ID</label>
+                            <input type="text" class="form-control" name="id" id="updateEnemyID" readonly>
+                        </div>
+                        <div class="mb-3">
+                            <label for="updateEnemyName" class="form-label">Name</label>
+                            <input type="text" class="form-control" name="name" id="updateEnemyName" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="updateEnemyType" class="form-label">Type</label>
+                            <select class="form-select" name="enemyType" id="updateEnemyType">
+                                <option>Normal</option>
+                                <option>Boss</option>
+                                <option>Support</option>
+                            </select>
+                        </div>
+                        <!-- TODO: Implement file upload functionality for custom enemies -->
+                        <!-- <div class=" mb-3">
+                            <label for="updateEnemyImage" class="form-label">Image</label>
+                            <input type="file" class="form-control" name="image" id="updateEnemyImg" accept=".png">
+                        </div> -->
+                        <div class="mb-3">
+                            <label for="updateEnemyLevel" class="form-label">Level</label>
+                            <input type="number" class="form-control" name="level" id="updateEnemyLevel" min="0"
+                                required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="updateEnemyLocations" class="form-label">Locations</label>
+                            <select class="form-select" multiple name="locations" id="updateEnemyLocations">
+                                <option>Peach's Castle</option>
+                                <option>Koopa Cruiser</option>
+                                <option>Stardust Fields</option>
+                                <option>Hoohoo Mountain</option>
+                                <option>Beanbean Outskirts</option>
+                                <option>Beanbean Castle</option>
+                                <option>Beanbean Castle Sewers</option>
+                                <option>Chateau de Chucklehuck</option>
+                                <option>Chucklehuck Woods</option>
+                                <option>Oho Ocean Seabed</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="updateEnemyCoins" class="form-label">Coins</label>
+                            <input type="number" class="form-control" name="coins" id="updateEnemyCoins" min="0"
+                                required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="updateEnemyExp" class="form-label">EXP</label>
+                            <input type="number" class="form-control" name="exp" id="updateEnemyExp" min="0" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="updateEnemyHP" class="form-label">HP</label>
+                            <input type="number" class="form-control" name="maxHP" id="updateEnemyHP" min="0" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="updateEnemyPow" class="form-label">POW</label>
+                            <input type="number" class="form-control" name="pow" id="updateEnemyPow" min="0" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="updateEnemyDef" class="form-label">DEF</label>
+                            <input type="number" class="form-control" name="def" id="updateEnemyDef" min="0" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="updateEnemySpeed" class="form-label">SPEED</label>
+                            <input type="number" class="form-control" name="speed" id="updateEnemySpeed" min="0"
+                                required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="updateEnemyStun" class="form-label">Stun?</label>
+                            <input type="number" class="form-control" name="chanceOfStun" id="updateEnemyStun" min="0"
+                                max="100" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="updateEnemyBurn" class="form-label">Burn?</label>
+                            <input type="number" class="form-control" name="chanceOfBurn" id="updateEnemyBurn" min="0"
+                                max="100" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="updateEnemyStatDown" class="form-label">Stat Down?</label>
+                            <input type="number" class="form-control" name="chanceOfStatDown" id="updateEnemyStatDown"
+                                min="0" max="100" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="updateEnemyJumpReaction" class="form-label">Reaction to Jump</label>
+                            <select class="form-select" name="jump" id="updateEnemyJumpReaction">
+                                <option>Normal</option>
+                                <option>Spiny</option>
+                                <option>Weak</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="updateEnemyHammerReaction" class="form-label">Reaction to Hammer</label>
+                            <select class="form-select" name="hammer" id="updateEnemyHammerReaction">
+                                <option>Normal</option>
+                                <option>Weak</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="updateEnemyHandReaction" class="form-label">Reaction to Hand</label>
+                            <select class="form-select" name="hand" id="updateEnemyHandReaction">
+                                <option>Normal</option>
+                                <option>Weak</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="updateEnemyFireReaction" class="form-label">Reaction to Fire</label>
+                            <select class="form-select" name="fire" id="updateEnemyFireReaction">
+                                <option>Normal</option>
+                                <option>Heal</option>
+                                <option>Critical</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="updateEnemyThunderReaction" class="form-label">Reaction to Thunder</label>
+                            <select class="form-select" name="thunder" id="updateEnemyThunderReaction">
+                                <option>Normal</option>
+                                <option>Heal</option>
+                                <option>Critical</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="updateEnemyItemOne" class="form-label">Item Received (1)</label>
+                            <select class="form-select" name="itemOne" id="updateEnemyItemOne">
+                                <option>None</option>
+                                <option>Mushroom</option>
+                                <option>Super Mushroom</option>
+                                <option>Ultra Mushroom</option>
+                                <option>Max Mushroom</option>
+                                <option>Nut</option>
+                                <option>Super Nut</option>
+                                <option>Ultra Nut</option>
+                                <option>Max Nut</option>
+                                <option>Syrup Jar</option>
+                                <option>Supersyrup Jar</option>
+                                <option>Ultrasyrup Jar</option>
+                                <option>Max Syrup Jar</option>
+                                <option>1-Up Mushroom</option>
+                                <option>1-Up Super</option>
+                                <option>Red Pepper</option>
+                                <option>Green Pepper</option>
+                                <option>Refreshing Herb</option>
+                                <option>Golden Mushroom</option>
+                                <option>Woo Bean</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="updateEnemyChanceItemOne" class="form-label">Chance of Item Received (1)</label>
+                            <input type="number" class="form-control" name="itemOneChance" id="updateEnemyChanceItemOne"
+                                min="0" max="100">
+                        </div>
+                        <div class="mb-3">
+                            <label for="updateEnemyItemTwo" class="form-label">Item Received (2)</label>
+                            <select class="form-select" name="itemTwo" id="updateEnemyItemTwo">
+                                <option>None</option>
+                                <option>Mushroom</option>
+                                <option>Super Mushroom</option>
+                                <option>Ultra Mushroom</option>
+                                <option>Max Mushroom</option>
+                                <option>Nut</option>
+                                <option>Super Nut</option>
+                                <option>Ultra Nut</option>
+                                <option>Max Nut</option>
+                                <option>Syrup Jar</option>
+                                <option>Supersyrup Jar</option>
+                                <option>Ultrasyrup Jar</option>
+                                <option>Max Syrup Jar</option>
+                                <option>1-Up Mushroom</option>
+                                <option>1-Up Super</option>
+                                <option>Red Pepper</option>
+                                <option>Green Pepper</option>
+                                <option>Refreshing Herb</option>
+                                <option>Golden Mushroom</option>
+                                <option>Woo Bean</option>
+                            </select>
+                        </div>
+                        <div class="mb-3">
+                            <label for="updateEnemyChanceItemTwo" class="form-label">Chance of Item Received (2)</label>
+                            <input type="number" class="form-control" name="itemTwoChance" id="updateEnemyChanceItemTwo"
+                                min="0" max="100">
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary" id="updateEnemySubmit">Submit</button>
                 </div>
             </div>
         </div>

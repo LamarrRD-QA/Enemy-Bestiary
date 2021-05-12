@@ -4,8 +4,11 @@
     const BASEURL = `http://localhost:8080`;
     const TABLEBODY = document.querySelector(`#enemyTableBody`);
     const ADDENEMYSUBMIT = document.querySelector(`#addEnemySubmit`);
-    const LOCATIONS = document.querySelector(`#addEnemyLocations`);
-    // const ADDENEMYMODAL = document.querySelector(`#addEnemyModal`);
+    const ADDENEMYLOCATIONS = document.querySelector(`#addEnemyLocations`);
+    const UPDATEENEMYSUBMIT = document.querySelector(`#updateEnemySubmit`);
+    const UPDATEENEMYLOCATIONS = document.querySelector(`#updateEnemyLocations`);
+    const UPDATEENEMYMODAL = document.querySelector(`#updateEnemyModal`);
+
 
     const makeGetRequest = async () => {
         try {
@@ -18,9 +21,9 @@
         }
     };
 
-    const handleSelectedToArray = () => {
+    const handleSelectedToArray = (event) => {
         let testArr = [];
-        let options = LOCATIONS.childNodes;
+        let options = event.currentTarget.options;
 
         for (const option of options) {
             if (option.selected) {
@@ -31,7 +34,7 @@
         return testArr;
     }
 
-    const handleFormSubmit = (event) => {
+    const handleAddFormSubmit = (event) => {
         event.preventDefault();
         console.log(document.forms.length);
 
@@ -46,15 +49,40 @@
         const formJSON = manipulateData(formData);
         console.log(formJSON);
 
+        postDataToSQL(formJSON);
+    }
 
-        sendDataToSQL(formJSON);
+    const handleUpdateFormSubmit = (event) => {
+        event.preventDefault();
+
+        const formData = new FormData(document.forms.namedItem(`updateEnemyForm`));
+        
+
+        // TODO: Implement image upload functionality for custom enemy
+        // const formImage = new FormData();
+        // formImage.append(`image`, formData.get(`image`));
+        // formData.delete(`image`);
+        // sendImageToServer(formImage);
+
+        const formJSON = manipulateData(formData);
+        console.log(formJSON.id);
+
+        putDataToSQL(formJSON, formJSON.id);
     }
 
     const manipulateData = (data) => {
 
+        let locationNode = undefined;
+
+        if (document.querySelector(`#addEnemyModal`).classList.contains(`show`)) {
+            locationNode = document.querySelector(`#addEnemyLocations`);
+        } else if (document.querySelector(`#updateEnemyModal`).classList.contains(`show`)) {
+            locationNode = document.querySelector(`#updateEnemyLocations`);
+        }
+
         // Create list of selected options
         let locationArr = [];
-        for (const option of LOCATIONS.childNodes) {
+        for (const option of locationNode.childNodes) {
             if (option.selected) {
                 locationArr.push(option.textContent);
             }
@@ -93,7 +121,7 @@
     //     }
     // }
 
-    const sendDataToSQL = async (enemyData) => {
+    const postDataToSQL = async (enemyData) => {
         try {
             const response = await axios.post(`/catalogue`, enemyData);
             let enemy = response.data;
@@ -102,6 +130,26 @@
         } catch (error) {
             console.error(error);
         }
+    }
+
+    const putDataToSQL = async (enemyData, id) => {
+        try {
+            const response = await axios.put(`/catalogue/${id}`, enemyData);
+            let enemy = response.data;
+            console.log(`PUT: Updated enemy`, enemy);
+            updateEnemyTableRow(enemy);
+            //createEnemyTableRow(enemy);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    const updateEnemyTableRow = (enemy) => {
+        let currentRow = document.querySelector(`#tableRow${enemy.id}`);
+        currentRow.cells[0].innerHTML = `<i class=bi ${setIconForEnemyTable(enemy)}></i>`;
+        currentRow.cells[1].innerHTML = enemy.name;
+        currentRow.cells[2].innerHTML = enemy.enemyType;
+        //currentRow.cells[3].innerHTML = enemy.isCustom ? `Custom` : `Normal`;
     }
 
     const setIconForEnemyTable = (enemy) => {
@@ -116,12 +164,88 @@
         return iconText;
     }
 
+    const managePopover = (row) => {
+        console.log();
+        let rowPopOver = new bootstrap.Popover(row, {
+            container: row,
+            placement: `bottom`,
+            trigger: `focus`,
+            html: true,
+            sanitize: false,
+            content: `<button type="button" id="btnView" class="btn btn-secondary">View</button> ` +
+                `<button type="button" id="btnUpdate" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateEnemyModal" data-enemyid=${row.dataset["enemyid"]}>Update</button> ` +
+                `<button type="button" id="btnDelete" class="btn btn-danger" data-enemyid=${row.dataset["enemyid"]}>Delete</button> `
+        });
+    }
+
+    const findEnemyByID = async (id) => {
+        try {
+            const response = await axios.get(`/catalogue/${id}`);
+            let enemy = response.data;
+            console.log(`GET: Found enemy`, enemy);
+            updateEnemyModal(enemy);
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
+    const setupFindEnemy = (event) => {
+        let enemyID = event.relatedTarget.dataset["enemyid"];
+        findEnemyByID(enemyID);
+    }
+
+    const updateEnemyModal = (enemy) => {
+        // Obtain values from enemy JSON and display in form
+        document.getElementById(`updateEnemyID`).value = enemy.id;
+        document.getElementById(`updateEnemyName`).value = enemy.name;
+        document.getElementById(`updateEnemyType`).value = enemy.enemyType;
+        document.getElementById(`updateEnemyLevel`).value = enemy.level;
+        document.getElementById(`updateEnemyCoins`).value = enemy.coins;
+        document.getElementById(`updateEnemyExp`).value = enemy.exp;
+        document.getElementById(`updateEnemyHP`).value = enemy.maxHP;
+        document.getElementById(`updateEnemyPow`).value = enemy.pow;
+        document.getElementById(`updateEnemyDef`).value = enemy.def;
+        document.getElementById(`updateEnemySpeed`).value = enemy.speed;
+        document.getElementById(`updateEnemyLevel`).value = enemy.level;
+        document.getElementById(`updateEnemyStun`).value = enemy.chanceOfStun;
+        document.getElementById(`updateEnemyBurn`).value = enemy.chanceOfBurn;
+        document.getElementById(`updateEnemyStatDown`).value = enemy.chanceOfStatDown;
+        document.getElementById(`updateEnemyJumpReaction`).value = enemy.jump;
+        document.getElementById(`updateEnemyHammerReaction`).value = enemy.hammer;
+        document.getElementById(`updateEnemyHandReaction`).value = enemy.hand;
+        document.getElementById(`updateEnemyFireReaction`).value = enemy.fire;
+        document.getElementById(`updateEnemyThunderReaction`).value = enemy.thunder;
+        document.getElementById(`updateEnemyItemOne`).value = enemy.itemOne;
+        document.getElementById(`updateEnemyChanceItemOne`).value = enemy.itemOneChance;
+        document.getElementById(`updateEnemyItemTwo`).value = enemy.itemTwo;
+        document.getElementById(`updateEnemyChanceItemTwo`).value = enemy.itemTwoChance;
+
+
+        // Select multiple options based on content of enemy.locations in JSON
+        let locations = document.getElementById(`updateEnemyLocations`);
+
+        for (let index = 0; index < locations.options.length; index++) {
+            let option = locations.options[index];
+
+            if (enemy.locations.indexOf(option.text) != -1) {
+                option.selected = true;
+            }
+
+        }
+
+    }
+
     const createEnemyTableRow = (enemy) => {
 
+        //Set needed attributes for new table row
         let row = document.createElement(`tr`);
-        
+        row.setAttribute(`tabindex`, `-1`);
+        row.setAttribute(`data-enemyid`, enemy.id);
+        row.setAttribute(`id`, `tableRow${enemy.id}`);
+
+
         // Create node for enemy image and append to row;
-        let columnImg = document.createElement(`td`);
+        let imgCell = document.createElement(`td`);
         let enemyImg = undefined;
         if (enemy.isCustom) {
             enemyImg = document.createElement(`i`);
@@ -131,32 +255,36 @@
             enemyImg.setAttribute(`src`, `../res/normal_enemy/${enemy.name}.png`);
             enemyImg.setAttribute(`alt`, `Image of ${enemy.name}`);
         }
-        columnImg.appendChild(enemyImg);
-        row.appendChild(columnImg);
+        imgCell.appendChild(enemyImg);
+        row.appendChild(imgCell);
 
         // Create node for enemy name and append to row
         let enemyName = document.createTextNode(enemy.name);
-        let columnName = document.createElement(`td`);
-        columnName.appendChild(enemyName);
-        row.appendChild(columnName);
+        let nameCell = document.createElement(`td`);
+        nameCell.appendChild(enemyName);
+        row.appendChild(nameCell);
 
         // Create node for enemy type and append to row
         let enemyType = document.createTextNode(enemy.enemyType);
-        let columnType = document.createElement(`td`);
-        columnType.appendChild(enemyType);
-        row.appendChild(columnType);
+        let enemyTypeCell = document.createElement(`td`);
+        enemyTypeCell.appendChild(enemyType);
+        row.appendChild(enemyTypeCell);
 
         // Create node for whether enemy is normal or custom and append to row
         let enemyIsCustom = enemy.isCustom ? document.createTextNode(`Custom`) : document.createTextNode(`Normal`);
-        let columnIsCustom = document.createElement(`td`);
-        columnIsCustom.appendChild(enemyIsCustom);
-        row.appendChild(columnIsCustom);
+        let enemyIsCustomCell = document.createElement(`td`);
+        enemyIsCustomCell.appendChild(enemyIsCustom);
+        row.appendChild(enemyIsCustomCell);
 
         TABLEBODY.appendChild(row);
+        managePopover(row);
     }
 
     makeGetRequest();
-    LOCATIONS.addEventListener(`change`, handleSelectedToArray);
-    ADDENEMYSUBMIT.addEventListener(`click`, handleFormSubmit);
+    ADDENEMYLOCATIONS.addEventListener(`change`, handleSelectedToArray);
+    ADDENEMYSUBMIT.addEventListener(`click`, handleAddFormSubmit);
+    UPDATEENEMYMODAL.addEventListener(`shown.bs.modal`, setupFindEnemy);
+    UPDATEENEMYLOCATIONS.addEventListener(`change`, handleSelectedToArray);
+    UPDATEENEMYSUBMIT.addEventListener(`click`, handleUpdateFormSubmit);
 
 })();

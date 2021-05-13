@@ -10,6 +10,7 @@
     const UPDATEENEMYLOCATIONS = document.querySelector(`#updateEnemyLocations`);
     const UPDATEENEMYMODAL = document.querySelector(`#updateEnemyModal`);
     const DELETEENEMYMODAL = document.querySelector(`#deleteEnemyModal`);
+    
 
 
     const makeGetRequest = async () => {
@@ -118,7 +119,7 @@
 
     const postDataToSQL = async (enemyData) => {
         try {
-            const response = await axios.post(`/catalogue`, enemyData);
+            const response = await axios.post(`${BASEURL}/catalogue`, enemyData);
             let enemy = response.data;
             console.log(`POST: Created enemy`, enemy);
             createEnemyTableRow(enemy);
@@ -129,7 +130,7 @@
 
     const putDataToSQL = async (enemyData, id) => {
         try {
-            const response = await axios.put(`/catalogue/${id}`, enemyData);
+            const response = await axios.put(`${BASEURL}/catalogue/${id}`, enemyData);
             let enemy = response.data;
             console.log(`PUT: Updated enemy`, enemy);
             updateEnemyTableRow(enemy);
@@ -165,15 +166,20 @@
             trigger: `focus`,
             html: true,
             sanitize: false,
-            content: `<button type="button" id="btnView" class="btn btn-secondary">View</button> ` +
+            content: `<button type="button" id="btnView" class="btn btn-secondary" data-enemyid=${row.dataset["enemyid"]}>View</button> ` +
                 `<button type="button" id="btnUpdate" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updateEnemyModal" data-enemyid=${row.dataset["enemyid"]}>Update</button> ` +
                 `<button type="button" id="btnDelete" class="btn btn-danger" data-enemyid=${row.dataset["enemyid"]} data-bs-toggle="modal" data-bs-target="#deleteEnemyModal">Delete</button> `
         });
     }
 
+    const viewEnemyPage = (event) => {
+
+        window.location.href = `${BASEURL}/profile.html/?id=${event.target.dataset["enemyid"]}`;
+    }
+
     const findEnemyByID = async (id) => {
         try {
-            const response = await axios.get(`/catalogue/${id}`);
+            const response = await axios.get(`${BASEURL}/catalogue/${id}`);
             let enemy = response.data;
             console.log(`GET: Found enemy`, enemy);
             updateEnemyModal(enemy);
@@ -240,7 +246,7 @@
 
     const deleteEnemyFromSQL = async (id) => {
         try {
-            await axios.delete(`/catalogue/${id}`);
+            await axios.delete(`${BASEURL}/catalogue/${id}`);
             console.log(`DELETE: Enemy successful deleted`);
             removeTableRow(id);
         } catch (error) {
@@ -305,5 +311,12 @@
     UPDATEENEMYSUBMIT.addEventListener(`click`, handleUpdateFormSubmit);
     DELETEENEMYMODAL.addEventListener(`shown.bs.modal`, setupDeleteEnemyModal);
     DELETEENEMYBUTTON.addEventListener(`click`, handleDeleteEnemy);
+    // VIEWENEMYBUTTON.addEventListener(`click`, viewEnemyPage);
+
+    document.addEventListener(`click`, function (event) {
+        if (event.target && event.target.id === `btnView`) {
+            viewEnemyPage(event);
+        }
+    })
 
 })();

@@ -311,7 +311,6 @@
     UPDATEENEMYSUBMIT.addEventListener(`click`, handleUpdateFormSubmit);
     DELETEENEMYMODAL.addEventListener(`shown.bs.modal`, setupDeleteEnemyModal);
     DELETEENEMYBUTTON.addEventListener(`click`, handleDeleteEnemy);
-    // VIEWENEMYBUTTON.addEventListener(`click`, viewEnemyPage);
 
     document.addEventListener(`click`, function (event) {
         if (event.target && event.target.id === `btnView`) {

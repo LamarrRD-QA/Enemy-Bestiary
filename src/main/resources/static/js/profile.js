@@ -14,6 +14,8 @@
 
         if (urlParams.has(`id`)) {
             findEnemyByID(urlParams.get(`id`));
+        } else if (urlParams.has(`enemyName`)) {
+            findEnemyByName(urlParams.get(`enemyName`));
         }
     };
 
@@ -28,6 +30,30 @@
         }
     }
 
+    const findEnemyByName = async (enemyName) => {
+        try {
+            const response = await axios.get(`${BASEURL}/profile/enemy_${enemyName}`);
+            let enemy = response.data;
+            console.log(`GET: Found enemy`, enemy);
+            loadEnemy(enemy);
+        } catch (error) {
+            console.error(error);
+            displayError();
+        }
+    }
+
+    const displayError = () => {
+        let profileCont = document.querySelector(`#profileContainer`);
+        profileCont.style.visibility = "hidden";
+
+        let errorMessage = document.createElement(`div`);
+        let errorMessageText = document.createTextNode(`Sorry, no enemy of this name was found!`);
+        errorMessage.setAttribute(`class`, `alert alert-danger`);
+        errorMessage.setAttribute(`role`, `alert`);
+        errorMessage.appendChild(errorMessageText);
+        document.body.appendChild(errorMessage);
+
+    }
     const setIconForEnemyTable = (enemy) => {
         let iconText = ``;
         if (enemy.enemyType === `Normal`) {

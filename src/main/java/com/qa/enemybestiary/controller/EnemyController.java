@@ -49,7 +49,7 @@ public class EnemyController {
 		}
 	}
 	
-	@GetMapping("catalogue/{id}")
+	@GetMapping({"/catalogue/{id}", "/profile/{id}"})
 	public ResponseEntity<Enemy> getEnemy(@PathVariable("id") Long id) {
 		try {
 			Enemy updatedEnemy = this.service.getEnemy(id);
@@ -59,7 +59,7 @@ public class EnemyController {
 		}
 	}
 	
-	@DeleteMapping("catalogue/{id}")
+	@DeleteMapping("/catalogue/{id}")
 	public ResponseEntity<Enemy> deleteEnemy(@PathVariable("id") Long id) {
 		try {
 			this.service.deleteEnemy(id);

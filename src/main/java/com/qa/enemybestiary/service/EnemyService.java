@@ -36,9 +36,14 @@ public class EnemyService {
 		return newEnemy;
 	}
 
-	public Enemy getEnemy(Long id) {
+	public Enemy getEnemyById(Long id) {
 		return this.repo.findById(id)
 				.orElseThrow(() -> new EnemyNotFoundException(String.format("Enemy %d not found in database", id)));
+	}
+
+	public Enemy getEnemyByName(String name) {
+		return this.repo.findEnemyByNameIgnoreCase(name)
+				.orElseThrow(() -> new EnemyNotFoundException(String.format("Enemy by name of %s not found in database", name)));
 	}
 
 	public void deleteEnemy(Long id) {

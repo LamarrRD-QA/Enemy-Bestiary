@@ -49,17 +49,27 @@ public class EnemyController {
 		}
 	}
 	
-	@GetMapping("catalogue/{id}")
-	public ResponseEntity<Enemy> getEnemy(@PathVariable("id") Long id) {
+	@GetMapping({"/catalogue/{id}", "/profile/{id}"})
+	public ResponseEntity<Enemy> getEnemyById(@PathVariable("id") Long id) {
 		try {
-			Enemy updatedEnemy = this.service.getEnemy(id);
+			Enemy updatedEnemy = this.service.getEnemyById(id);
 			return ResponseEntity.ok(updatedEnemy);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
 	
-	@DeleteMapping("catalogue/{id}")
+	@GetMapping("/profile/enemy_{enemyName}")
+	public ResponseEntity<Enemy> getEnemyByName(@PathVariable("enemyName") String name) {
+		try {
+			Enemy updatedEnemy = this.service.getEnemyByName(name);
+			return ResponseEntity.ok(updatedEnemy);
+		} catch (Exception e) {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+	
+	@DeleteMapping("/catalogue/{id}")
 	public ResponseEntity<Enemy> deleteEnemy(@PathVariable("id") Long id) {
 		try {
 			this.service.deleteEnemy(id);

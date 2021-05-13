@@ -14,12 +14,14 @@ import com.qa.enemybestiary.domain.enums.Item;
 import com.qa.enemybestiary.domain.enums.Location;
 import com.qa.enemybestiary.domain.enums.MeleeReaction;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Data
 @NoArgsConstructor
+@AllArgsConstructor
 public class Enemy {
 
 	@Id

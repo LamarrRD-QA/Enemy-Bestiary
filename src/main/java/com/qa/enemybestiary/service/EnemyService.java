@@ -27,7 +27,7 @@ public class EnemyService {
 	}
 
 	public Enemy updateEnemy(Long id, Enemy newEnemy) {
-		Enemy oldEnemy = this.repo.findById(id).orElseThrow(
+		var oldEnemy = this.repo.findById(id).orElseThrow(
 				() -> new EnemyNotFoundException(String.format("Enemy %d not found to be updated in database", id)));
 
 		newEnemy.setId(oldEnemy.getId());
@@ -46,7 +46,7 @@ public class EnemyService {
 	}
 
 	public boolean deleteEnemy(Long id) {
-		Enemy enemyToDelete = this.repo.findById(id).orElseThrow(
+		var enemyToDelete = this.repo.findById(id).orElseThrow(
 				() -> new EnemyNotFoundException(String.format("Enemy %d not found to delete in database", id)));
 
 		this.repo.delete(enemyToDelete);

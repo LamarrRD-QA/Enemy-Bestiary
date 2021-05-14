@@ -33,7 +33,7 @@ import com.qa.enemybestiary.repo.EnemyRepo;
 @SpringBootTest
 @ActiveProfiles(profiles = "test")
 @Sql(scripts = { "classpath:schema.sql", "classpath:data.sql" }, executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
-public class EnemyServiceTest {
+class EnemyServiceTest {
 
 	@Autowired
 	private EnemyService service;
@@ -42,7 +42,7 @@ public class EnemyServiceTest {
 	private EnemyRepo repo;
 
 	@Test
-	public void testReadAllEnemies() {
+	void testReadAllEnemies() {
 		List<Enemy> enemyList = new ArrayList<>();
 
 		enemyList
@@ -77,7 +77,7 @@ public class EnemyServiceTest {
 	}
 
 	@Test
-	public void testCreateEnemy() {
+	void testCreateEnemy() {
 		Enemy enemy = new Enemy("Kitty", EnemyType.NORMAL, EnumSet.allOf(Location.class), 7, 80, 40, 50, 60,
 				MeleeReaction.SPINY, MeleeReaction.NORMAL, MeleeReaction.WEAK, ElementalReaction.HEAL,
 				ElementalReaction.CRITICAL, new BigDecimal("60"), new BigDecimal("50"), new BigDecimal("40"), 50, 30,
@@ -94,7 +94,7 @@ public class EnemyServiceTest {
 	}
 
 	@Test
-	public void testUpdateEnemySuccess() {
+	void testUpdateEnemySuccess() {
 		Enemy oldEnemy = new Enemy(2L, "Bowser", EnemyType.BOSS, EnumSet.of(Location.GOODCASTLE), 99, 6, 1, 28, 1,
 				MeleeReaction.NORMAL, MeleeReaction.NORMAL, MeleeReaction.NORMAL, ElementalReaction.HEAL,
 				ElementalReaction.CRITICAL, new BigDecimal("30"), new BigDecimal("30"), new BigDecimal("30"), 0, 0,
@@ -113,7 +113,7 @@ public class EnemyServiceTest {
 	}
 
 	@Test
-	public void testUpdateEnemyFailure() {
+	void testUpdateEnemyFailure() {
 		Enemy testEnemy = new Enemy(42L, "King Bean", EnemyType.BOSS, EnumSet.of(Location.BEANCASTLE), 9, 120, 32, 60,
 				90, MeleeReaction.SPINY, MeleeReaction.WEAK, MeleeReaction.NORMAL, ElementalReaction.CRITICAL,
 				ElementalReaction.NORMAL, new BigDecimal("30"), new BigDecimal("30"), new BigDecimal("30"), 142, 10,
@@ -130,7 +130,7 @@ public class EnemyServiceTest {
 	}
 
 	@Test
-	public void testGetEnemyByIdSuccess() {
+	void testGetEnemyByIdSuccess() {
 		Enemy testEnemy = new Enemy(3L, "Left Arm (Queen Bean)", EnemyType.SUPPORT, EnumSet.of(Location.BEANCASTLE), 9,
 				22, 32, 30, 90, MeleeReaction.NORMAL, MeleeReaction.NORMAL, MeleeReaction.NORMAL,
 				ElementalReaction.NORMAL, ElementalReaction.NORMAL, new BigDecimal("0"), new BigDecimal("0"),
@@ -143,7 +143,7 @@ public class EnemyServiceTest {
 	}
 
 	@Test
-	public void testGetEnemyByIdFailure() {
+	void testGetEnemyByIdFailure() {
 		Long id = 40L;
 
 		when(this.repo.findById(id))
@@ -155,7 +155,7 @@ public class EnemyServiceTest {
 	}
 
 	@Test
-	public void testGetEnemyByNameSuccess() {
+	void testGetEnemyByNameSuccess() {
 		Enemy testEnemy = new Enemy(5L, "Queen Bean", EnemyType.BOSS, EnumSet.of(Location.BEANCASTLE), 9, 120, 32, 30,
 				90, MeleeReaction.SPINY, MeleeReaction.WEAK, MeleeReaction.NORMAL, ElementalReaction.NORMAL,
 				ElementalReaction.NORMAL, new BigDecimal("30"), new BigDecimal("30"), new BigDecimal("30"), 142, 10,
@@ -169,7 +169,7 @@ public class EnemyServiceTest {
 	}
 
 	@Test
-	public void testGetEnemyByNameFailure() {
+	void testGetEnemyByNameFailure() {
 		String name = "meanie";
 
 		when(this.repo.findEnemyByNameIgnoreCase(name)).thenThrow(
@@ -181,7 +181,7 @@ public class EnemyServiceTest {
 	}
 
 	@Test
-	public void testDeleteEnemySuccess() {
+	void testDeleteEnemySuccess() {
 		Enemy testEnemy = new Enemy(3L, "Left Arm (Queen Bean)", EnemyType.SUPPORT, EnumSet.of(Location.BEANCASTLE), 9,
 				22, 32, 30, 90, MeleeReaction.NORMAL, MeleeReaction.NORMAL, MeleeReaction.NORMAL,
 				ElementalReaction.NORMAL, ElementalReaction.NORMAL, new BigDecimal("0"), new BigDecimal("0"),
@@ -197,7 +197,7 @@ public class EnemyServiceTest {
 	}
 
 	@Test
-	public void testDeleteEnemyFailure() {
+	void testDeleteEnemyFailure() {
 		Enemy testEnemy = new Enemy(55L, "Trembo", EnemyType.NORMAL,
 				EnumSet.of(Location.OUTSKIRTS, Location.BEANCASTLE), 5, 7, 18, 24, 54, MeleeReaction.NORMAL,
 				MeleeReaction.WEAK, MeleeReaction.NORMAL, ElementalReaction.CRITICAL, ElementalReaction.NORMAL,

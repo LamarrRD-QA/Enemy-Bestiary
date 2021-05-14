@@ -149,7 +149,7 @@
             await modal.hide();
 
             let toast = new bootstrap.Toast(CRUDNOTICE, {
-                delay: 800
+                autohide: false
             });
             await toast.show();
         } catch (error) {
@@ -170,7 +170,7 @@
             await modal.hide();
 
             let toast = new bootstrap.Toast(CRUDNOTICE, {
-                delay: 800
+                autohide: false
             });
             await toast.show();
         } catch (error) {
@@ -302,7 +302,7 @@
             await modal.hide();
 
             let toast = new bootstrap.Toast(CRUDNOTICE, {
-                delay: 800
+                autohide: false
             });
             await toast.show();
         } catch (error) {

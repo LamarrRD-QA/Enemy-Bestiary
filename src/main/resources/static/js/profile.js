@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-    const BASEURL = `http://localhost:8080`;
+    //const BASEURL = `http://localhost:8080`;
     const IMGNAMECARD = document.querySelector(`#imgNameCard`);
     const GENERALINFOCARD = document.querySelector(`#generalInfoCard`);
     const STATSCARD = document.querySelector(`#statsCard`);
@@ -21,7 +21,7 @@
 
     const findEnemyByID = async (id) => {
         try {
-            const response = await axios.get(`${BASEURL}/profile/${id}`);
+            const response = await axios.get(`/profile/${id}`);
             let enemy = response.data;
             console.log(`GET: Found enemy`, enemy);
             loadEnemy(enemy);
@@ -32,7 +32,7 @@
 
     const findEnemyByName = async (enemyName) => {
         try {
-            const response = await axios.get(`${BASEURL}/profile/enemy_${enemyName}`);
+            const response = await axios.get(`/profile/enemy_${enemyName}`);
             let enemy = response.data;
             console.log(`GET: Found enemy`, enemy);
             loadEnemy(enemy);
@@ -50,6 +50,7 @@
         let errorMessageText = document.createTextNode(`Sorry, no enemy of this name was found!`);
         errorMessage.setAttribute(`class`, `alert alert-danger`);
         errorMessage.setAttribute(`role`, `alert`);
+        errorMessage.setAttribute(`id`, `noEnemyAlert`);
         errorMessage.appendChild(errorMessageText);
         document.body.appendChild(errorMessage);
 

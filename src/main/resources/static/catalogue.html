@@ -17,7 +17,8 @@
             <div class="row">
                 <div class="col text-center">
                     <!-- Image created with VisMe -->
-                    <img src="./res/header_banner.jpg" alt="Mario & Luigi Enemy Bestiary" class="img-fluid" />
+                    <img src="./res/header_banner.jpg" alt="Mario & Luigi Enemy Bestiary" class="img-fluid"
+                        id="headerBanner" />
                 </div>
 
             </div>
@@ -33,7 +34,7 @@
             </div>
         </div>
     </header>
-    <table class="table table-striped table-hover">
+    <table class="table table-striped table-hover" id="enemyTable">
         <thead>
             <tr>
                 <th scope="col">Image</th>
@@ -45,10 +46,11 @@
         <tbody id="enemyTableBody">
         </tbody>
     </table>
-    <button type=" button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addEnemyModal">
+    <button type=" button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addEnemyModal"
+        id="addEnemyBtn">
         Add Enemy
     </button>
-    <div class="modal fade" id="addEnemyModal" tabindex="-1">
+    <div class="modal fade" id="addEnemyModal" tabindex="-1" data-bs-backdrop="static">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -120,17 +122,17 @@
                         <div class="mb-3">
                             <label for="addEnemyStun" class="form-label">Stun?</label>
                             <input type="number" class="form-control" name="chanceOfStun" id="addEnemyStun" min="0"
-                                max="100" required>
+                                max="100" step="0.01" required>
                         </div>
                         <div class="mb-3">
                             <label for="addEnemyBurn" class="form-label">Burn?</label>
                             <input type="number" class="form-control" name="chanceOfBurn" id="addEnemyBurn" min="0"
-                                max="100" required>
+                                max="100" step="0.01" required>
                         </div>
                         <div class="mb-3">
                             <label for="addEnemyStatDown" class="form-label">Stat Down?</label>
                             <input type="number" class="form-control" name="chanceOfStatDown" id="addEnemyStatDown"
-                                min="0" max="100" required>
+                                min="0" max="100" step="0.01" required>
                         </div>
                         <div class="mb-3">
                             <label for="addEnemyJumpReaction" class="form-label">Reaction to Jump</label>
@@ -198,7 +200,7 @@
                         <div class="mb-3">
                             <label for="addEnemyChanceItemOne" class="form-label">Chance of Item Received (1)</label>
                             <input type="number" class="form-control" name="itemOneChance" id="addEnemyChanceItemOne"
-                                min="0" max="100">
+                                min="0" max="100" step="0.01">
                         </div>
                         <div class="mb-3">
                             <label for="addEnemyItemTwo" class="form-label">Item Received (2)</label>
@@ -228,7 +230,7 @@
                         <div class="mb-3">
                             <label for="addEnemyChanceItemTwo" class="form-label">Chance of Item Received (2)</label>
                             <input type="number" class="form-control" name="itemTwoChance" id="addEnemyChanceItemTwo"
-                                min="0" max="100">
+                                min="0" max="100" step="0.01">
                         </div>
                     </form>
                 </div>
@@ -239,7 +241,7 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="updateEnemyModal" tabindex="-1">
+    <div class="modal fade" id="updateEnemyModal" tabindex="-1" data-bs-backdrop="static">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -437,7 +439,7 @@
             </div>
         </div>
     </div>
-    <div class="modal fade" id="deleteEnemyModal" tabindex="-1">
+    <div class="modal fade" id="deleteEnemyModal" tabindex="-1" data-bs-backdrop="static">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -452,6 +454,15 @@
                     <button type="button" class="btn btn-danger" id="deleteEnemyYes" tabindex="-1">Yes</button>
                 </div>
             </div>
+        </div>
+    </div>
+    <div class="toast hide" role="alert" aria-live="assertive" aria-atomic="true" id="notif">
+        <div class="toast-header">
+            <strong class="me-auto">Enemy Manipulation</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+        <div class="toast-body">
+            Placeholder
         </div>
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"

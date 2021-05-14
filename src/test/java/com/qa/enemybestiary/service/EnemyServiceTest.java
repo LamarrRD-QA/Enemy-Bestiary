@@ -32,8 +32,7 @@ import com.qa.enemybestiary.repo.EnemyRepo;
 
 @SpringBootTest
 @ActiveProfiles(profiles = "test")
-@Sql(scripts = { "classpath:enemy-schema.sql",
-		"classpath:enemy-data.sql" }, executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
+@Sql(scripts = { "classpath:schema.sql", "classpath:data.sql" }, executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
 public class EnemyServiceTest {
 
 	@Autowired
@@ -200,16 +199,16 @@ public class EnemyServiceTest {
 	@Test
 	public void testDeleteEnemyFailure() {
 		Enemy testEnemy = new Enemy(55L, "Trembo", EnemyType.NORMAL,
-				EnumSet.of(Location.OUTSKIRTS, Location.BEANCASTLE),
-				5, 7, 18, 24, 54, MeleeReaction.NORMAL, MeleeReaction.WEAK, MeleeReaction.NORMAL,
-				ElementalReaction.CRITICAL, ElementalReaction.NORMAL, new BigDecimal("30"),
-				new BigDecimal("70"), new BigDecimal("40"), 4, 2, Item.FULL1UP, new BigDecimal("42.21"),
-				Item.GREENPEPPER, new BigDecimal("57.89"), true);
+				EnumSet.of(Location.OUTSKIRTS, Location.BEANCASTLE), 5, 7, 18, 24, 54, MeleeReaction.NORMAL,
+				MeleeReaction.WEAK, MeleeReaction.NORMAL, ElementalReaction.CRITICAL, ElementalReaction.NORMAL,
+				new BigDecimal("30"), new BigDecimal("70"), new BigDecimal("40"), 4, 2, Item.FULL1UP,
+				new BigDecimal("42.21"), Item.GREENPEPPER, new BigDecimal("57.89"), true);
 
-		when(this.repo.findById(testEnemy.getId()))
-				.thenThrow(new EnemyNotFoundException(String.format("Enemy %d not found to delete in database", testEnemy.getId())));
+		when(this.repo.findById(testEnemy.getId())).thenThrow(new EnemyNotFoundException(
+				String.format("Enemy %d not found to delete in database", testEnemy.getId())));
 
-		assertThatExceptionOfType(EnemyNotFoundException.class).isThrownBy(() -> this.service.deleteEnemy(testEnemy.getId()))
+		assertThatExceptionOfType(EnemyNotFoundException.class)
+				.isThrownBy(() -> this.service.deleteEnemy(testEnemy.getId()))
 				.withMessage(String.format("Enemy %d not found to delete in database", testEnemy.getId()));
 		verify(this.repo, times(1)).findById(testEnemy.getId());
 		verify(this.repo, times(0)).delete(testEnemy);

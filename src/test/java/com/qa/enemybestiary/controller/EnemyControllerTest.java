@@ -34,8 +34,7 @@ import com.qa.enemybestiary.domain.enums.MeleeReaction;
 @SpringBootTest(webEnvironment = WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc
 @ActiveProfiles(profiles = "test")
-@Sql(scripts = { "classpath:enemy-schema.sql",
-		"classpath:enemy-data.sql" }, executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
+@Sql(scripts = { "classpath:schema.sql", "classpath:data.sql" }, executionPhase = ExecutionPhase.BEFORE_TEST_METHOD)
 public class EnemyControllerTest {
 
 	@Autowired
@@ -145,8 +144,8 @@ public class EnemyControllerTest {
 
 	@Test
 	public void testGetEnemyByNameSuccess() throws Exception {
-		Enemy testEnemy = new Enemy(5L, "Queen Bean", EnemyType.BOSS, EnumSet.of(Location.BEANCASTLE), 9, 120, 32, 30, 90,
-				MeleeReaction.SPINY, MeleeReaction.WEAK, MeleeReaction.NORMAL, ElementalReaction.NORMAL,
+		Enemy testEnemy = new Enemy(5L, "Queen Bean", EnemyType.BOSS, EnumSet.of(Location.BEANCASTLE), 9, 120, 32, 30,
+				90, MeleeReaction.SPINY, MeleeReaction.WEAK, MeleeReaction.NORMAL, ElementalReaction.NORMAL,
 				ElementalReaction.NORMAL, new BigDecimal("30"), new BigDecimal("30"), new BigDecimal("30"), 142, 10,
 				Item.FULL1UP, new BigDecimal("100"), Item.NONE, new BigDecimal("0"), false);
 		String searchTerm = "queen bean";

@@ -1,0 +1,28 @@
+drop table if exists enemy CASCADE;
+CREATE TABLE enemy (
+    id BIGINT auto_increment,
+    chance_of_burn DECIMAL(19 , 2 ),
+    chance_of_stat_down DECIMAL(19 , 2 ),
+    chance_of_stun DECIMAL(19 , 2 ),
+    coins INTEGER NOT NULL,
+    def INTEGER NOT NULL,
+    enemy_type VARCHAR(255),
+    exp INTEGER NOT NULL,
+    fire VARCHAR(255),
+    hammer VARCHAR(255),
+    hand VARCHAR(255),
+    is_custom BOOLEAN,
+    item_one VARCHAR(255),
+    item_one_chance DECIMAL(19 , 2 ),
+    item_two VARCHAR(255),
+    item_two_chance DECIMAL(19 , 2 ),
+    jump VARCHAR(255),
+    level INTEGER NOT NULL,
+    locations VARCHAR(255),
+    maxhp INTEGER NOT NULL,
+    name VARCHAR(255),
+    pow INTEGER NOT NULL,
+    speed INTEGER NOT NULL,
+    thunder VARCHAR(255),
+    PRIMARY KEY (id)
+);

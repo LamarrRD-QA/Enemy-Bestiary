@@ -35,14 +35,14 @@ public class EnemyController {
 	
 	@PostMapping("/catalogue")
 	public ResponseEntity<Enemy> createEnemy(@RequestBody Enemy enemy) {
-		Enemy createdEnemy = this.service.createEnemy(enemy);
+		var createdEnemy = this.service.createEnemy(enemy);
 		return new ResponseEntity<Enemy>(createdEnemy, HttpStatus.CREATED);
 	}
 
 	@PutMapping("/catalogue/{id}")
 	public ResponseEntity<Enemy> updateEnemy(@PathVariable("id") Long id, @RequestBody Enemy enemy) {
 		try {
-			Enemy updatedEnemy = this.service.updateEnemy(id, enemy);
+			var updatedEnemy = this.service.updateEnemy(id, enemy);
 			return ResponseEntity.ok(updatedEnemy);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -52,7 +52,7 @@ public class EnemyController {
 	@GetMapping({"/catalogue/{id}", "/profile/{id}"})
 	public ResponseEntity<Enemy> getEnemyById(@PathVariable("id") Long id) {
 		try {
-			Enemy updatedEnemy = this.service.getEnemyById(id);
+			var updatedEnemy = this.service.getEnemyById(id);
 			return ResponseEntity.ok(updatedEnemy);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -62,7 +62,7 @@ public class EnemyController {
 	@GetMapping("/profile/enemy_{enemyName}")
 	public ResponseEntity<Enemy> getEnemyByName(@PathVariable("enemyName") String name) {
 		try {
-			Enemy updatedEnemy = this.service.getEnemyByName(name);
+			var updatedEnemy = this.service.getEnemyByName(name);
 			return ResponseEntity.ok(updatedEnemy);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);

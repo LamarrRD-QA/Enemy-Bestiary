@@ -36,7 +36,7 @@ public class HomeTest {
 	public void setUp() {
 		System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
 		ChromeOptions option = new ChromeOptions();
-		option.setHeadless(true); // we won't have the window popping up 
+		option.setHeadless(true);
 		driver = new ChromeDriver(option);
 		driver.manage().window().setSize(new Dimension(1920, 1080));
 	}

@@ -1,7 +1,7 @@
 'use strict';
 
 (function () {
-    const BASEURL = `http://localhost:8080`;
+    // const BASEURL = `http://localhost:8080`;
     const TABLEBODY = document.querySelector(`#enemyTableBody`);
     const ADDENEMYSUBMIT = document.querySelector(`#addEnemySubmit`);
     const ADDENEMYLOCATIONS = document.querySelector(`#addEnemyLocations`);
@@ -15,7 +15,7 @@
 
     const makeGetRequest = async () => {
         try {
-            const response = await axios.get(`${BASEURL}/catalogue`);
+            const response = await axios.get(`/catalogue`);
             const enemies = response.data;
             console.log(`GET: Retrieved list of enemies`, enemies);
             enemies.forEach(enemy => createEnemyTableRow(enemy));
@@ -119,7 +119,7 @@
 
     const postDataToSQL = async (enemyData) => {
         try {
-            const response = await axios.post(`${BASEURL}/catalogue`, enemyData);
+            const response = await axios.post(`/catalogue`, enemyData);
             let enemy = response.data;
             console.log(`POST: Created enemy`, enemy);
             createEnemyTableRow(enemy);
@@ -130,7 +130,7 @@
 
     const putDataToSQL = async (enemyData, id) => {
         try {
-            const response = await axios.put(`${BASEURL}/catalogue/${id}`, enemyData);
+            const response = await axios.put(`/catalogue/${id}`, enemyData);
             let enemy = response.data;
             console.log(`PUT: Updated enemy`, enemy);
             updateEnemyTableRow(enemy);
@@ -174,12 +174,12 @@
 
     const viewEnemyPage = (event) => {
 
-        window.location.href = `${BASEURL}/profile.html/?id=${event.target.dataset["enemyid"]}`;
+        window.location.href = `/profile.html/?id=${event.target.dataset["enemyid"]}`;
     }
 
     const findEnemyByID = async (id) => {
         try {
-            const response = await axios.get(`${BASEURL}/catalogue/${id}`);
+            const response = await axios.get(`/catalogue/${id}`);
             let enemy = response.data;
             console.log(`GET: Found enemy`, enemy);
             updateEnemyModal(enemy);
@@ -246,7 +246,7 @@
 
     const deleteEnemyFromSQL = async (id) => {
         try {
-            await axios.delete(`${BASEURL}/catalogue/${id}`);
+            await axios.delete(`/catalogue/${id}`);
             console.log(`DELETE: Enemy successful deleted`);
             removeTableRow(id);
         } catch (error) {

@@ -10,19 +10,37 @@
     const UPDATEENEMYLOCATIONS = document.querySelector(`#updateEnemyLocations`);
     const UPDATEENEMYMODAL = document.querySelector(`#updateEnemyModal`);
     const DELETEENEMYMODAL = document.querySelector(`#deleteEnemyModal`);
-    
+    const ADDENEMYMODAL = document.querySelector(`#addEnemyModal`);
+    const CRUDNOTICE = document.querySelector(`#notif`);
 
 
     const makeGetRequest = async () => {
         try {
             const response = await axios.get(`/catalogue`);
             const enemies = response.data;
-            console.log(`GET: Retrieved list of enemies`, enemies);
-            enemies.forEach(enemy => createEnemyTableRow(enemy));
+            if (Object.entries(enemies).length === 0) {
+                displayGetError();
+            } else {
+                console.log(`GET: Retrieved list of enemies`, enemies);
+                enemies.forEach(enemy => createEnemyTableRow(enemy));
+            }
         } catch (error) {
             console.error(error);
         }
     };
+
+    const displayGetError = () => {
+        let enemyTable = document.querySelector(`#enemyTable`);
+        enemyTable.style.visibility = "hidden";
+
+        let errorMessage = document.createElement(`div`);
+        let errorMessageText = document.createTextNode(`Sorry, no enemies were found to display!`);
+        errorMessage.setAttribute(`class`, `alert alert-danger`);
+        errorMessage.setAttribute(`role`, `alert`);
+        errorMessage.setAttribute(`id`, `listEnemyNotFoundAlert`);
+        errorMessage.appendChild(errorMessageText);
+        document.body.appendChild(errorMessage);
+    }
 
     const handleSelectedToArray = (event) => {
         let testArr = [];
@@ -50,6 +68,7 @@
 
         const formJSON = manipulateData(formData);
         postDataToSQL(formJSON);
+        
     }
 
     const handleUpdateFormSubmit = (event) => {
@@ -122,7 +141,17 @@
             const response = await axios.post(`/catalogue`, enemyData);
             let enemy = response.data;
             console.log(`POST: Created enemy`, enemy);
+            
             createEnemyTableRow(enemy);
+            updateNotification(`Congrats! Your enemy has been created.`);
+
+            let modal = bootstrap.Modal.getInstance(ADDENEMYMODAL);
+            await modal.hide();
+
+            let toast = new bootstrap.Toast(CRUDNOTICE, {
+                delay: 800
+            });
+            await toast.show();
         } catch (error) {
             console.error(error);
         }
@@ -133,11 +162,27 @@
             const response = await axios.put(`/catalogue/${id}`, enemyData);
             let enemy = response.data;
             console.log(`PUT: Updated enemy`, enemy);
+            
             updateEnemyTableRow(enemy);
+            updateNotification(`Congrats! Enemy ${id} has been updated.`);
+
+            let modal = bootstrap.Modal.getInstance(UPDATEENEMYMODAL);
+            await modal.hide();
+
+            let toast = new bootstrap.Toast(CRUDNOTICE, {
+                delay: 800
+            });
+            await toast.show();
         } catch (error) {
             console.error(error);
         }
     }
+
+    const updateNotification = (message) => {
+        let notif = document.getElementById(`notif`);
+
+        notif.firstElementChild.nextElementSibling.innerHTML = message;
+    } 
 
     const updateEnemyTableRow = (enemy) => {
         let currentRow = document.querySelector(`#tableRow${enemy.id}`);
@@ -241,6 +286,7 @@
 
     const handleDeleteEnemy = (event) => {
         let enemyID = event.target.dataset["enemyid"];
+        DELETEENEMYMODAL.classList.remove(`show`);
         deleteEnemyFromSQL(enemyID);
     }
 
@@ -248,7 +294,17 @@
         try {
             await axios.delete(`/catalogue/${id}`);
             console.log(`DELETE: Enemy successful deleted`);
+
             removeTableRow(id);
+            updateNotification(`Congrats! Enemy ${id} has been deleted.`)
+
+            let modal = bootstrap.Modal.getInstance(DELETEENEMYMODAL);
+            await modal.hide();
+
+            let toast = new bootstrap.Toast(CRUDNOTICE, {
+                delay: 800
+            });
+            await toast.show();
         } catch (error) {
             console.error(error);
         }
@@ -275,7 +331,7 @@
             enemyImg.setAttribute(`class`, `bi ${setIconForEnemyTable(enemy)}`)
         } else {
             enemyImg = document.createElement(`img`);
-            enemyImg.setAttribute(`src`, `../res/normal_enemy/${enemy.name}.png`);
+            enemyImg.setAttribute(`src`, `../res/normal_enemy_img/${enemy.name}.png`);
             enemyImg.setAttribute(`alt`, `Image of ${enemy.name}`);
         }
         imgCell.appendChild(enemyImg);

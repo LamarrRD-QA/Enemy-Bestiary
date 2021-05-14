@@ -1,35 +1,33 @@
-Coverage: 0%
+Coverage: 63%
 # Enemy Bestiary
 
-A website detailing both normal and custom enemies based of the Mario & Luigi series of games.
+A Spring Boot project thar handles the detailing both normal and custom enemies based of the Mario & Luigi series of games.
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+1. Sownload and install the latest version of [Git](https://git-scm.com/downloads) for your respective platform.
+2. Open a terminal (GIT Bash for Windows users) and navigate to the directory you want the code to rest on your system
+3. Type in `git clone https://github.com/LamarrRD-QA/Enemy-Bestiary.git` and execute
+4. You should now have a local version of this application for personal use.
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
-
-```
-Give examples
-```
+- Maven - 3.x series (latest version is 3.8.1 at time of writing)
+- Jave Development Kit - 11 or later (OpenJDK preferred but other distributions may work).
+- MySQL - 5.7 or later.
+- Selenium WebDriver (Chrome) for running integration tests.
 
 ### Installing
 
-A step by step series of examples that tell you how to get a development env running
+1. Download and install the Java Development Kit for your platform
+2. Download and install Maven for your platform
+3. Download and install MySQL  for your platform
+4. Navigate to `src/main/resources/application-prod.yml` and open this file in your favourite text editor.
+5. Edit the database location, username and password to the ones associated with your setup and save.
+6. Navigate back to the root directory where this file is and open a command prompt from this directory.
+6. Run `mvn clean package` to start afresh, remove any unnecessary artefacts and compile into a JAR executable.
+7. Run the JAR file from the command line with `java -jar EnemyBestiary-0.0.1-SNAPSHOT.jar`
 
-Say what the step will be
-
-```
-Give the example
-```
-
-And repeat
-
-```
-until finished
-```
 
 End with an example of getting some data out of the system or using it for a little demo
 
@@ -47,22 +45,11 @@ Give an example
 
 ### Integration Tests 
 Explain what these tests test, why and how to run them
+Selenium
 
 ```
 Give an example
 ```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
 
 ## Built With
 
@@ -74,7 +61,7 @@ We use [SemVer](http://semver.org/) for versioning.
 
 ## Authors
 
-* **Chris Perrins** - *Initial work* - [christophperrins](https://github.com/christophperrins)
+* **Lamarr Redhead-Davis** - *Project Execution* - [LamarrRD-QA](https://github.com/LamarrRD-QA/)
 
 ## License
 
@@ -84,6 +71,9 @@ This project is licensed under the MIT license - see the [LICENSE.md](LICENSE.md
 
 ## Acknowledgments
 
-* Hat tip to anyone whose code was used
+[Axios](https://github.com/axios/axios)
+[Bootstrap](https://getbootstrap.com/)
+[Bootstrap Icons](https://icons.getbootstrap.com/)
+[Enemy images/details](https://www.mariowiki.com/Mario_%26_Luigi:_Superstar_Saga_bestiary)
 * Inspiration
 * etc
